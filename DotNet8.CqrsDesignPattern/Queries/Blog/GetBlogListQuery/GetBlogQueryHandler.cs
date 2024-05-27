@@ -1,4 +1,5 @@
 ﻿using DotNet8.CqrsDesignPattern.Models.Blog;
+using DotNet8.CqrsDesignPattern.Queries.Blog.GetBlogListQuery;
 using DotNet8.CqrsDesignPattern.Repositories.Blog;
 using MediatR;
 
