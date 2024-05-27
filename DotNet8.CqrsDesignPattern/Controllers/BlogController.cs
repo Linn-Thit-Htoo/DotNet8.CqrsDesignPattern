@@ -5,65 +5,64 @@ using DotNet8.CqrsDesignPattern.Queries.Blog.GetBlogList;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DotNet8.CqrsDesignPattern.Controllers
+namespace DotNet8.CqrsDesignPattern.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class BlogController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class BlogController : ControllerBase
+    private readonly IMediator _mediator;
+
+    public BlogController(IMediator mediator)
     {
-        private readonly IMediator _mediator;
+        _mediator = mediator;
+    }
 
-        public BlogController(IMediator mediator)
+    [HttpGet]
+    public async Task<IActionResult> GetBlogs()
+    {
+        try
         {
-            _mediator = mediator;
+            var query = new GetBlogQuery();
+            var lst = await _mediator.Send(query);
+
+            return Ok(lst);
         }
-
-        [HttpGet]
-        public async Task<IActionResult> GetBlogs()
+        catch (Exception ex)
         {
-            try
-            {
-                var query = new GetBlogQuery();
-                var lst = await _mediator.Send(query);
-
-                return Ok(lst);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            throw new Exception(ex.Message);
         }
+    }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetBlogById(long id)
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetBlogById(long id)
+    {
+        try
         {
-            try
-            {
-                var query = new GetBlogByIdQuery() { BlogId = id };
-                var item = await _mediator.Send(query);
+            var query = new GetBlogByIdQuery() { BlogId = id };
+            var item = await _mediator.Send(query);
 
-                return Ok(item);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            return Ok(item);
         }
-
-        [HttpPost]
-        public async Task<IActionResult> CreateBlog([FromBody] BlogRequestModel requestModel)
+        catch (Exception ex)
         {
-            try
-            {
-                var command = new CreateBlogCommand() { Blog = requestModel };
-                int result = await _mediator.Send(command);
+            throw new Exception(ex.Message);
+        }
+    }
 
-                return result > 0 ? StatusCode(201, "Blog Created.") : BadRequest("Creating Fail.");
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+    [HttpPost]
+    public async Task<IActionResult> CreateBlog([FromBody] BlogRequestModel requestModel)
+    {
+        try
+        {
+            var command = new CreateBlogCommand() { Blog = requestModel };
+            int result = await _mediator.Send(command);
+
+            return result > 0 ? StatusCode(201, "Blog Created.") : BadRequest("Creating Fail.");
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
         }
     }
 }
