@@ -2,20 +2,19 @@
 using DotNet8.CqrsDesignPattern.Repositories.Blog;
 using MediatR;
 
-namespace DotNet8.CqrsDesignPattern.Queries.Blog.GetBlogListQuery
+namespace DotNet8.CqrsDesignPattern.Queries.Blog.GetBlogListQuery;
+
+public class GetBlogQueryHandler : IRequestHandler<GetBlogQuery, BlogListResponseModel>
 {
-    public class GetBlogQueryHandler : IRequestHandler<GetBlogQuery, BlogListResponseModel>
+    private readonly IBlogRepository _blogRepository;
+
+    public GetBlogQueryHandler(IBlogRepository blogRepository)
     {
-        private readonly IBlogRepository _blogRepository;
+        _blogRepository = blogRepository;
+    }
 
-        public GetBlogQueryHandler(IBlogRepository blogRepository)
-        {
-            _blogRepository = blogRepository;
-        }
-
-        public async Task<BlogListResponseModel> Handle(GetBlogQuery request, CancellationToken cancellationToken)
-        {
-            return await _blogRepository.GetBlogsAsync();
-        }
+    public async Task<BlogListResponseModel> Handle(GetBlogQuery request, CancellationToken cancellationToken)
+    {
+        return await _blogRepository.GetBlogsAsync();
     }
 }
