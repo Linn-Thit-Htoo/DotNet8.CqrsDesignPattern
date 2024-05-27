@@ -1,9 +1,8 @@
 ﻿using DotNet8.CqrsDesignPattern.Models.Blog;
-using DotNet8.CqrsDesignPattern.Queries.Blog.GetBlogListQuery;
 using DotNet8.CqrsDesignPattern.Repositories.Blog;
 using MediatR;
 
-namespace DotNet8.CqrsDesignPattern.Queries.Blog.GetBlogList
+namespace DotNet8.CqrsDesignPattern.Queries.Blog.GetBlogListQuery
 {
     public class GetBlogQueryHandler : IRequestHandler<GetBlogQuery, BlogListResponseModel>
     {
