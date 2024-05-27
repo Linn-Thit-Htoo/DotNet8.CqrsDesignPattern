@@ -2,71 +2,70 @@
 using DotNet8.CqrsDesignPattern.Models.Blog;
 using Microsoft.EntityFrameworkCore;
 
-namespace DotNet8.CqrsDesignPattern.Repositories.Blog
+namespace DotNet8.CqrsDesignPattern.Repositories.Blog;
+
+public class BlogRepository : IBlogRepository
 {
-    public class BlogRepository : IBlogRepository
+    private readonly AppDbContext _appDbContext;
+
+    public BlogRepository(AppDbContext appDbContext)
     {
-        private readonly AppDbContext _appDbContext;
+        _appDbContext = appDbContext;
+    }
 
-        public BlogRepository(AppDbContext appDbContext)
+    public async Task<int> CreateBlogAsync(BlogRequestModel requestModel)
+    {
+        try
         {
-            _appDbContext = appDbContext;
+            await _appDbContext.Blogs.AddAsync(requestModel.Change());
+            int result = await _appDbContext.SaveChangesAsync();
+
+            return result;
         }
-
-        public async Task<int> CreateBlogAsync(BlogRequestModel requestModel)
+        catch (Exception ex)
         {
-            try
-            {
-                await _appDbContext.Blogs.AddAsync(requestModel.Change());
-                int result = await _appDbContext.SaveChangesAsync();
-
-                return result;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            throw new Exception(ex.Message);
         }
+    }
 
-        public async Task<BlogModel> GetBlogByIdAsync(long id)
+    public async Task<BlogModel> GetBlogByIdAsync(long id)
+    {
+        try
         {
-            try
-            {
-                if (id <= 0)
-                    throw new Exception("Id cannot be empty.");
+            if (id <= 0)
+                throw new Exception("Id cannot be empty.");
 
-                var item = await _appDbContext.Blogs
-                    .AsNoTracking()
-                    .FirstOrDefaultAsync(x => x.BlogId == id);
+            var item = await _appDbContext.Blogs
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.BlogId == id);
 
-                return item!;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            return item!;
         }
-
-        public async Task<BlogListResponseModel> GetBlogsAsync()
+        catch (Exception ex)
         {
-            try
-            {
-                var lst = await _appDbContext.Blogs
-               .AsNoTracking()
-               .OrderByDescending(x => x.BlogId)
-               .ToListAsync();
+            throw new Exception(ex.Message);
+        }
+    }
 
-                BlogListResponseModel responseModel = new()
-                {
-                    DataLst = lst
-                };
+    public async Task<BlogListResponseModel> GetBlogsAsync()
+    {
+        try
+        {
+            var lst = await _appDbContext.Blogs
+           .AsNoTracking()
+           .OrderByDescending(x => x.BlogId)
+           .ToListAsync();
 
-                return responseModel;
-            }
-            catch (Exception ex)
+            BlogListResponseModel responseModel = new()
             {
-                throw new Exception(ex.Message);
-            }
+                DataLst = lst
+            };
+
+            return responseModel;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
         }
     }
 }
