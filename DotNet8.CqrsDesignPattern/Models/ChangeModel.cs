@@ -1,17 +1,16 @@
 ﻿using DotNet8.CqrsDesignPattern.Models.Blog;
 
-namespace DotNet8.CqrsDesignPattern.Models
+namespace DotNet8.CqrsDesignPattern.Models;
+
+public static class ChangeModel
 {
-    public static class ChangeModel
+    public static BlogModel Change(this BlogRequestModel requestModel)
     {
-        public static BlogModel Change(this BlogRequestModel requestModel)
+        return new BlogModel
         {
-            return new BlogModel
-            {
-                BlogTitle = requestModel.BlogTitle,
-                BlogAuthor = requestModel.BlogAuthor,
-                BlogContent = requestModel.BlogContent
-            };
-        }
+            BlogTitle = requestModel.BlogTitle,
+            BlogAuthor = requestModel.BlogAuthor,
+            BlogContent = requestModel.BlogContent
+        };
     }
 }
