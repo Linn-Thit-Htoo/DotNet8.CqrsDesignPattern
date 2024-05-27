@@ -1,7 +1,6 @@
 ﻿using DotNet8.CqrsDesignPattern.Models;
 using DotNet8.CqrsDesignPattern.Models.Blog;
 using Microsoft.EntityFrameworkCore;
-using System.Runtime.CompilerServices;
 
 namespace DotNet8.CqrsDesignPattern.Repositories.Blog
 {
