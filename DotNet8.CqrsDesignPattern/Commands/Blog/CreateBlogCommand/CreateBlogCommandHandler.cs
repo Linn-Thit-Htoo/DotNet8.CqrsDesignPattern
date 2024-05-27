@@ -1,5 +1,4 @@
-﻿using DotNet8.CqrsDesignPattern.Models;
-using DotNet8.CqrsDesignPattern.Repositories.Blog;
+﻿using DotNet8.CqrsDesignPattern.Repositories.Blog;
 using MediatR;
 
 namespace DotNet8.CqrsDesignPattern.Commands.Blog.CreateBlogCommand
