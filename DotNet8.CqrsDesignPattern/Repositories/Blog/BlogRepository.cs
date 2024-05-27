@@ -1,5 +1,7 @@
 ﻿using DotNet8.CqrsDesignPattern.Models;
+using DotNet8.CqrsDesignPattern.Models.Blog;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.CompilerServices;
 
 namespace DotNet8.CqrsDesignPattern.Repositories.Blog
 {
@@ -12,31 +14,60 @@ namespace DotNet8.CqrsDesignPattern.Repositories.Blog
             _appDbContext = appDbContext;
         }
 
+        public async Task<int> CreateBlogAsync(BlogRequestModel requestModel)
+        {
+            try
+            {
+                await _appDbContext.Blogs.AddAsync(requestModel.Change());
+                int result = await _appDbContext.SaveChangesAsync();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public async Task<BlogModel> GetBlogByIdAsync(long id)
         {
-            if (id <= 0)
-                throw new Exception("Id cannot be empty.");
+            try
+            {
+                if (id <= 0)
+                    throw new Exception("Id cannot be empty.");
 
-            var item = await _appDbContext.Blogs
-                .AsNoTracking()
-                .FirstOrDefaultAsync(x => x.BlogId == id);
+                var item = await _appDbContext.Blogs
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(x => x.BlogId == id);
 
-            return item!;
+                return item!;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public async Task<BlogListResponseModel> GetBlogsAsync()
         {
-            var lst = await _appDbContext.Blogs
-                .AsNoTracking()
-                .OrderByDescending(x => x.BlogId)
-                .ToListAsync();
-
-            BlogListResponseModel responseModel = new()
+            try
             {
-                DataLst = lst
-            };
+                var lst = await _appDbContext.Blogs
+               .AsNoTracking()
+               .OrderByDescending(x => x.BlogId)
+               .ToListAsync();
 
-            return responseModel;
+                BlogListResponseModel responseModel = new()
+                {
+                    DataLst = lst
+                };
+
+                return responseModel;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

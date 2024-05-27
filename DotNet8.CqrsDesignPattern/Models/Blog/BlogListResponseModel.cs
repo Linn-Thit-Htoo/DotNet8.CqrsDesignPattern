@@ -1,4 +1,4 @@
-﻿namespace DotNet8.CqrsDesignPattern.Models
+﻿namespace DotNet8.CqrsDesignPattern.Models.Blog
 {
     public class BlogListResponseModel
     {

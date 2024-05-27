@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DotNet8.CqrsDesignPattern.Models
+namespace DotNet8.CqrsDesignPattern.Models.Blog
 {
     [Table("Tbl_blog")]
     public class BlogModel
@@ -12,4 +12,4 @@ namespace DotNet8.CqrsDesignPattern.Models
         public string BlogAuthor { get; set; }
         public string BlogContent { get; set; }
     }
-} 
+}

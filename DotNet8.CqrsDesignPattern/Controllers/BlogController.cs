@@ -1,4 +1,7 @@
-﻿using DotNet8.CqrsDesignPattern.Queries;
+﻿using DotNet8.CqrsDesignPattern.Commands.Blog;
+using DotNet8.CqrsDesignPattern.Commands.Blog.CreateBlogCommand;
+using DotNet8.CqrsDesignPattern.Models.Blog;
+using DotNet8.CqrsDesignPattern.Queries;
 using DotNet8.CqrsDesignPattern.Queries.Blog.GetBlogById;
 using DotNet8.CqrsDesignPattern.Queries.Blog.GetBlogList;
 using MediatR;
@@ -43,6 +46,22 @@ namespace DotNet8.CqrsDesignPattern.Controllers
                 var item = await _mediator.Send(query);
 
                 return Ok(item);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateBlog([FromBody] BlogRequestModel requestModel)
+        {
+            try
+            {
+                var command = new CreateBlogCommand() { Blog = requestModel };
+                int result = await _mediator.Send(command);
+
+                return result > 0 ? StatusCode(201, "Blog Created.") : BadRequest("Creating Fail.");
             }
             catch (Exception ex)
             {

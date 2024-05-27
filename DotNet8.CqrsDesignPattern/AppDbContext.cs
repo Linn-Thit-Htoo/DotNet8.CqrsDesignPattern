@@ -1,4 +1,4 @@
-﻿using DotNet8.CqrsDesignPattern.Models;
+﻿using DotNet8.CqrsDesignPattern.Models.Blog;
 using Microsoft.EntityFrameworkCore;
 
 namespace DotNet8.CqrsDesignPattern

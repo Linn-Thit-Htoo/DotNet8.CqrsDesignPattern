@@ -1,4 +1,4 @@
-﻿using DotNet8.CqrsDesignPattern.Models;
+﻿using DotNet8.CqrsDesignPattern.Models.Blog;
 
 namespace DotNet8.CqrsDesignPattern.Repositories.Blog
 {
@@ -6,5 +6,6 @@ namespace DotNet8.CqrsDesignPattern.Repositories.Blog
     {
         Task<BlogListResponseModel> GetBlogsAsync();
         Task<BlogModel> GetBlogByIdAsync(long id);
+        Task<int> CreateBlogAsync(BlogRequestModel requestModel);
     }
 }
