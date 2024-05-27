@@ -1,7 +1,6 @@
-﻿namespace DotNet8.CqrsDesignPattern.Models.Blog
+﻿namespace DotNet8.CqrsDesignPattern.Models.Blog;
+
+public class BlogListResponseModel
 {
-    public class BlogListResponseModel
-    {
-        public List<BlogModel> DataLst { get; set; }
-    }
+    public List<BlogModel> DataLst { get; set; }
 }
