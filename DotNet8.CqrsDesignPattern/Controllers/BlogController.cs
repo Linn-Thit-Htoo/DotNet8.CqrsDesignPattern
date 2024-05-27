@@ -1,11 +1,8 @@
-﻿using DotNet8.CqrsDesignPattern.Commands.Blog;
-using DotNet8.CqrsDesignPattern.Commands.Blog.CreateBlogCommand;
+﻿using DotNet8.CqrsDesignPattern.Commands.Blog.CreateBlogCommand;
 using DotNet8.CqrsDesignPattern.Models.Blog;
-using DotNet8.CqrsDesignPattern.Queries;
 using DotNet8.CqrsDesignPattern.Queries.Blog.GetBlogById;
 using DotNet8.CqrsDesignPattern.Queries.Blog.GetBlogList;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DotNet8.CqrsDesignPattern.Controllers
