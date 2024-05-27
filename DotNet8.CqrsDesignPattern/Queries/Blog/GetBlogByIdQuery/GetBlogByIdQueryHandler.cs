@@ -2,7 +2,7 @@
 using DotNet8.CqrsDesignPattern.Repositories.Blog;
 using MediatR;
 
-namespace DotNet8.CqrsDesignPattern.Queries.Blog.GetBlogById
+namespace DotNet8.CqrsDesignPattern.Queries.Blog.GetBlogByIdQuery
 {
     public class GetBlogByIdQueryHandler : IRequestHandler<GetBlogByIdQuery, BlogModel>
     {
