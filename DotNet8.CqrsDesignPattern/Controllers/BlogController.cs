@@ -1,7 +1,7 @@
 ﻿using DotNet8.CqrsDesignPattern.Commands.Blog.CreateBlogCommand;
 using DotNet8.CqrsDesignPattern.Models.Blog;
-using DotNet8.CqrsDesignPattern.Queries.Blog.GetBlogById;
-using DotNet8.CqrsDesignPattern.Queries.Blog.GetBlogList;
+using DotNet8.CqrsDesignPattern.Queries.Blog.GetBlogByIdQuery;
+using DotNet8.CqrsDesignPattern.Queries.Blog.GetBlogListQuery;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
